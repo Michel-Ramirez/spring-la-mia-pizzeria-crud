@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" />
+    <title>Spring of Pizza...</title>
+</head>
+
+<body>
+    <header th:replace="fragments :: header"></header>
+    <main class="container">
+        <h1 class="mt-5">Menù</h1>
+    
+        <div th:if="${pizzasList.size() == 0}" class="text-center fw-bolder fs-1 mt-5 p-t5">Spiacente il menù è vuoto, aggiungi le tue pizze!</div>
+        
+        <table th:else class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pizza : ${pizzasList}" th:object="${pizza}">
+                    
+                    <th scope="row">[[*{id}]]</th>
+                    <td>[[*{name}]]</td>
+                    <td>[[*{description}]]</td>
+                    <td>€ [[*{price}]]</td>
+                    <td>
+                        <a th:replace="fragments :: button(@{/pizza/{id}(id=${pizza.id})}, 'view')" class="btn btn-sm btn-secondary"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+
+</html>

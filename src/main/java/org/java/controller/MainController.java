@@ -28,7 +28,7 @@ public class MainController {
 
 		System.out.println(query);
 
-		List<Pizza> pizzas = query != null ? pizzaService.findByName(query) : getAllPizzas();
+		List<Pizza> pizzas = query != null ? pizzaService.findByNameOrDescription(query) : getAllPizzas();
 
 		model.addAttribute("pizzasList", pizzas);
 

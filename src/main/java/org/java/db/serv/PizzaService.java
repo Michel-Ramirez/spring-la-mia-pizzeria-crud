@@ -22,7 +22,7 @@ public class PizzaService {
 	}
 
 	public List<Pizza> findByName(String value) {
-		return pizzaRepository.findByNameContainingIgnoreCase(value);
+		return pizzaRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(value, value);
 	}
 
 	public void save(Pizza pizza) {

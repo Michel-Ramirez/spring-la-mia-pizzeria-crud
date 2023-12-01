@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
@@ -23,9 +24,11 @@ public class MainController {
 	}
 
 	@GetMapping("/")
-	public String getPizzas(Model model) {
+	public String getPizzas(Model model, @RequestParam(required = false) String query) {
 
-		List<Pizza> pizzas = getAllPizzas();
+		System.out.println(query);
+
+		List<Pizza> pizzas = query != null ? pizzaService.findByName(query) : getAllPizzas();
 
 		model.addAttribute("pizzasList", pizzas);
 
@@ -36,23 +39,9 @@ public class MainController {
 	@GetMapping("/pizza/{id}")
 	public String detailSong(Model model, @PathVariable int id) {
 
-		// TRASFORMO IL ID IN NUMERO
-		int intId = Integer.valueOf(id);
-
-		// RECUPERO TUTTE LE PIZZE
-		List<Pizza> pizzasList = getAllPizzas();
-
-		// ISTANZIO UN OGGETTO A NULL
-		Pizza p = null;
-
-		// GIRO SU TUTTE LE PIZZE E CONTROLLO, MATCHO IL ID DAL URL CON QUELLO NELLA
-		// LISTA E ASSEGNO L'OGGETTO TROVATO IN MODO DA PASSARLO COME ATTRIBUTO
-		for (Pizza pizza : pizzasList) {
-
-			if (pizza.getId() == intId) {
-				p = pizza;
-			}
-		}
+		// RECUPERO DAL DB LA PIZZA CERCADOLA CON IL ID PASSATO TRAMITE PARAMETRO AL
+		// METODO
+		Pizza p = pizzaService.findById(id);
 
 		model.addAttribute("pizza", p);
 

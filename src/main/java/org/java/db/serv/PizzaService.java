@@ -17,8 +17,12 @@ public class PizzaService {
 		return pizzaRepository.findAll();
 	}
 
-	public Pizza findByID(int id) {
+	public Pizza findById(int id) {
 		return pizzaRepository.findById(id).get();
+	}
+
+	public List<Pizza> findByName(String value) {
+		return pizzaRepository.findByNameContainingIgnoreCase(value);
 	}
 
 	public void save(Pizza pizza) {

@@ -20,3 +20,17 @@ Gestiamo i componenti riutilizzabili con i `fragments`.
 
 >  ATTENZIONE: L’elenco potrebbe essere vuoto
 > In quel caso dobbiamo mostrare un messaggio che indichi all'utente che non ci sono pizze presenti nella nostra applicazione.
+
+
+### Day 2
+
+> IMPORTANTE
+> Continuiamo l’esercizio del giorno precedente, stessa repo
+
+Lo scopo di oggi è quello di mostrare i dettagli di una singola pizza.
+
+Ogni pizza dell’elenco avrà quindi un pulsante che se cliccato ci porterà a una pagina che mostrerà i dettagli della pizza scelta.
+Dobbiamo quindi inviare l'`id` come parametro dell'URL, recuperarlo nel metodo del `controller`, caricare i dati della pizza ricercata e passarli tramite il `model`.
+La `view` a quel punto li mostrerà all'utente con la grafica che preferiamo.
+
+Nella pagina con l’elenco delle pizze aggiungiamo un campo di testo che se compilato filtrerà le pizze (lato server) aventi come titolo quello inserito dall'utente.

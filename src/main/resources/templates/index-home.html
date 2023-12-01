@@ -11,9 +11,17 @@
     <header th:replace="fragments :: header"></header>
     <main class="container">
         <h1 class="mt-5">Menù</h1>
-    
-        <div th:if="${pizzasList.size() == 0}" class="text-center fw-bolder fs-1 mt-5 p-t5">Spiacente il menù è vuoto, aggiungi le tue pizze!</div>
+
+        <div class="d-flex justify-content-end mb-5">
+            <form class="d-flex" role="search" method="get">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="query">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
         
+        <div th:if="${pizzasList.size() == 0}" class="text-center fw-bolder fs-1 mt-5 p-t5">Spiacente il menù è vuoto,
+            aggiungi le tue pizze!</div>
+
         <table th:else class="table table-striped">
             <thead>
                 <tr>
@@ -26,13 +34,14 @@
             </thead>
             <tbody>
                 <tr th:each="pizza : ${pizzasList}" th:object="${pizza}">
-                    
+
                     <th scope="row">[[*{id}]]</th>
                     <td>[[*{name}]]</td>
                     <td>[[*{description}]]</td>
                     <td>€ [[*{price}]]</td>
                     <td>
-                        <a th:replace="fragments :: button(@{/pizza/{id}(id=${pizza.id})}, 'view')" class="btn btn-sm btn-secondary"></a>
+                        <a th:replace="fragments :: button(@{/pizza/{id}(id=${pizza.id})}, 'view')"
+                            class="btn btn-sm btn-secondary"></a>
                     </td>
                 </tr>
             </tbody>

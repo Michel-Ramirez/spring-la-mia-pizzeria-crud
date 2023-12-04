@@ -84,4 +84,12 @@ public class MainController {
 
 	}
 
+	@PostMapping("/pizza/{id}")
+	public String deletePizza(Model model, @ModelAttribute Pizza pizza) {
+
+		System.out.println(pizza);
+
+		return "index-home";
+	}
+
 }

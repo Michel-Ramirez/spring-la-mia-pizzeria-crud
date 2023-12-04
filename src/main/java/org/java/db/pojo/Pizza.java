@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Pizza {
@@ -18,6 +20,8 @@ public class Pizza {
 	private int id;
 
 	@Column(nullable = false, unique = true)
+	@NotBlank(message = "The field is empty")
+
 	private String name;
 
 	@Column(columnDefinition = "TEXT")
@@ -27,6 +31,7 @@ public class Pizza {
 	private String photo;
 
 	@Column(precision = 4, scale = 2)
+	@Positive(message = "Invalid price")
 	private BigDecimal price;
 
 	public Pizza() {

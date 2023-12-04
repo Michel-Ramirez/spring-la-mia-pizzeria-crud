@@ -10,9 +10,7 @@
   
   <main class="container" th:object="${pizza}">
       
-      <div class="mt-5 d-flex justify-content-end">
-        <a th:replace="fragments :: button(@{/}, '<-- Indietro')"></a>          
-      </div>
+      <div th:replace="fragments :: back-to-home"></div>  
       
       <h1 class="my-5 pt-5">[[*{name}]]  <span class="fs-5 fw-bolder ms-5">€ [[${pizza.price}]]</span></h1>
       

@@ -21,7 +21,19 @@
                 </div>
             </div>
         </div>
-        </div>  
     </header>
+    
+    <div th:fragment="back-to-home" class="mt-5 d-flex justify-content-end my-5">
+        <a th:replace="fragments :: button(@{/}, 'Home')"></a>          
+    </div>
+    
+    <div th:fragment="alertError(field)" class="alert alert-danger mt-1" th:if="${#fields.hasErrors(field)}">
+        <ul>
+            <li th:each="err : ${#fields.errors(field)}">
+                [[${err}]]
+            </li>
+        </ul>    
+    </div>
+    
 </body>
 </html>

@@ -2,6 +2,8 @@ package org.java.db.pojo;
 
 import java.math.BigDecimal;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,9 +17,11 @@ public class Pizza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Column(nullable = false, unique = true)
 	private String name;
 
 	@Column(columnDefinition = "TEXT")
+	@Length(min = 3, message = "The description must be longer than 3 characters")
 	private String description;
 
 	private String photo;

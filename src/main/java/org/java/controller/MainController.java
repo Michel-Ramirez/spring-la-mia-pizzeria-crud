@@ -122,7 +122,13 @@ public class MainController {
 		}
 
 		try {
+
 			pizzaService.save(pizza);
+
+			int id = pizza.getId();
+
+			return "redirect:/pizza/" + id;
+
 		} catch (Exception e) {
 			bindingResult.addError(
 					new FieldError("pizza", "name", pizza.getName(), false, null, null, "This pizza already exists"));
@@ -130,7 +136,6 @@ public class MainController {
 			return "create-update-form";
 		}
 
-		return "redirect:/";
 	}
 
 }

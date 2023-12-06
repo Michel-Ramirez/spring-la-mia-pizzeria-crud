@@ -3,6 +3,7 @@ package org.java.db.pojo;
 import java.math.BigDecimal;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,13 +22,14 @@ public class Pizza {
 
 	@Column(nullable = false, unique = true)
 	@NotBlank(message = "The field is empty")
-
 	private String name;
 
 	@Column(columnDefinition = "TEXT")
 	@Length(min = 3, message = "The description must be longer than 3 characters")
 	private String description;
 
+	@Column(columnDefinition = "TEXT")
+	@URL
 	private String photo;
 
 	@Column(precision = 4, scale = 2)

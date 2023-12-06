@@ -29,6 +29,8 @@ public class MainController {
 		return pizzasList;
 	}
 
+	// METODO CHE CHIAMA TUTTE LE PIZZE NEL DB DA MOSTRARE NELLA HOME
+
 	@GetMapping("/")
 	public String getPizzas(Model model, @RequestParam(required = false) String query) {
 
@@ -41,6 +43,23 @@ public class MainController {
 
 	}
 
+	// METODO PER VISUALIZZARE IL DETTAGLIO
+
+	@GetMapping("/pizza/{id}")
+	public String detailSong(Model model, @PathVariable int id) {
+
+		// RECUPERO DAL DB LA PIZZA CERCADOLA CON IL ID PASSATO TRAMITE PARAMETRO AL
+		// METODO
+		Pizza p = pizzaService.findById(id);
+
+		model.addAttribute("pizza", p);
+
+		return "detail-pizza";
+
+	}
+
+	// METODO PER LA VISUALISAZIONE DEL FORM IN PAGINA
+
 	@GetMapping("/pizza/create")
 	public String viewForm(Model model) {
 
@@ -51,8 +70,32 @@ public class MainController {
 		return "create-update-form";
 	}
 
+	// METODO PER LA CREAZIONE DI UNA NUOVA PIZZA CHE RICHIAMA IL METODO GENERICO DI
+	// SALVATAGGIO NEL RETURN
 	@PostMapping("/pizza/create")
-	public String storePizza(Model model, @Valid @ModelAttribute Pizza pizza, BindingResult bindingResult) {
+	public String cretePizza(Model model, @Valid @ModelAttribute Pizza pizza, BindingResult bindingResult) {
+
+		return savePizza(model, pizza, bindingResult);
+
+	}
+
+	// METODO PER ELIMINARE UNA ELEMENTO DAL DB
+
+	@PostMapping("/pizza/delete/{id}")
+	public String delete(Model model, @PathVariable int id) {
+
+		Pizza pizza = pizzaService.findById(id);
+
+		pizzaService.delete(pizza);
+
+		return "redirect:/";
+
+	}
+
+	// METODO CHE VALIDA I CAMPI IN ARRIVO E SALVA LA PIZZA, SIA CHE SIA IN
+	// CREAZIONE CHE IN MODIFICA, IL METODO VIENE RICHIAMATO NEI VARI RETURN
+
+	public String savePizza(Model model, @Valid @ModelAttribute Pizza pizza, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("pizza", pizza);
@@ -69,27 +112,6 @@ public class MainController {
 		}
 
 		return "redirect:/";
-	}
-
-	@GetMapping("/pizza/{id}")
-	public String detailSong(Model model, @PathVariable int id) {
-
-		// RECUPERO DAL DB LA PIZZA CERCADOLA CON IL ID PASSATO TRAMITE PARAMETRO AL
-		// METODO
-		Pizza p = pizzaService.findById(id);
-
-		model.addAttribute("pizza", p);
-
-		return "detail-pizza";
-
-	}
-
-	@PostMapping("/pizza/{id}")
-	public String deletePizza(Model model, @ModelAttribute Pizza pizza) {
-
-		System.out.println(pizza);
-
-		return "index-home";
 	}
 
 }

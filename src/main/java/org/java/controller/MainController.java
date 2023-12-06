@@ -79,6 +79,25 @@ public class MainController {
 
 	}
 
+	// METODO CHE CONDUCE AL FORM PER LA MODIFICA DELLA PIZZA
+	@GetMapping("/pizza/edit/{id}")
+	public String editPizza(Model model, @PathVariable int id) {
+
+		Pizza pizza = pizzaService.findById(id);
+		model.addAttribute("pizza", pizza);
+
+		return "create-update-form";
+	}
+
+	// METODO PER MODIFICARE LE INFORMAZIONI DELLA PIZZA SALVANDOLE NEL DB
+	// RICHIAMANDO IL METODO SAVEPIZZA
+	@PostMapping("/pizza/edit/{id}")
+	public String updatePizza(Model model, @Valid @ModelAttribute Pizza pizza, BindingResult bindingResult) {
+
+		return savePizza(model, pizza, bindingResult);
+
+	}
+
 	// METODO PER ELIMINARE UNA ELEMENTO DAL DB
 
 	@PostMapping("/pizza/delete/{id}")

@@ -45,9 +45,9 @@
                     <td>[[*{description}]]</td>
                     <td>€ [[*{price}]]</td>
                     <td class="d-flex">
-                        <a th:replace="fragments :: button(@{/pizza/{id}(id=${pizza.id})}, 'view')"
-                            class="btn btn-sm btn-secondary"></a>
-                        <form th:action="@{/pizza/delete/{id}(id=*{id})}" method="POST" class="ms-3">
+                        <a th:replace="fragments :: button(@{/pizza/{id}(id=${pizza.id})}, 'view')"></a>
+                        <a th:href="@{/pizza/edit/{id}(id=${pizza.id})}" class="btn btn-sm btn-warning me-3">edit</a>
+                        <form th:action="@{/pizza/delete/{id}(id=*{id})}" method="POST">
                             <button type="submit" class="btn btn-sm btn-danger">delete</button>
                         </form>
                     </td>
